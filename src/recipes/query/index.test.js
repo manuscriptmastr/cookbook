@@ -1,4 +1,4 @@
-import query, { o, m, c } from './index.js';
+import query, { o, m, c } from '.';
 import Joi from '@hapi/joi';
 
 const JQL = {

@@ -1,4 +1,4 @@
-import { instanceOf, raise, rescue } from './index.js';
+import { instanceOf, raise, rescue } from '.';
 
 class NotFoundError extends Error {
   constructor(message) {
