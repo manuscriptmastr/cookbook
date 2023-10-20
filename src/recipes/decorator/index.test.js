@@ -1,4 +1,4 @@
-import { persist } from '.';
+import { persist, tap } from '.';
 
 describe('@persist(storageKey, storage?)', () => {
   beforeEach(() => {
@@ -34,6 +34,7 @@ describe('@persist(storageKey, storage?)', () => {
 
   it('updates both property and session storage when property is updated and session storage was initialized by default property', () => {
     class TestClass {
+      @tap(console.log)
       @persist('test-property')
       accessor showDialog = false;
     }

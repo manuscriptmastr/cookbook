@@ -5,6 +5,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "build": "babel src -d dist",
     "lint": "prettier . --write",
     "test": "jest"
   },
@@ -13,6 +14,7 @@
     "ramda": "^0.29.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.2",
     "@babel/plugin-proposal-decorators": "^7.23.2",
     "@babel/preset-env": "^7.23.2",

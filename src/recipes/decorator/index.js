@@ -22,3 +22,17 @@ export const persist =
       store.setItem(key, JSON.stringify(value));
     },
   });
+
+export const tap =
+  (fn) =>
+  ({ get, set }) => ({
+    get() {
+      const value = get();
+      fn(value);
+      return value;
+    },
+    set(value) {
+      fn(value);
+      set(value);
+    },
+  });
