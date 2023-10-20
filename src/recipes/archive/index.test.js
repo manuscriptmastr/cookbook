@@ -1,48 +1,49 @@
-import test from 'ava';
-import Archivable from './index.js';
+import Archivable from '.';
 
-test('Archivable(value) sets .value to initial value', (t) => {
-  t.deepEqual(Archivable('hello').value, 'hello');
+test('Archivable(value) sets .value to initial value', () => {
+  expect(Archivable('hello').value).toEqual('hello');
 });
 
-test('Archivable(value) updates .value to result of .next()', (t) => {
-  t.deepEqual(Archivable('hello').next('bye').value, 'bye');
+test('Archivable(value) updates .value to result of .next()', () => {
+  expect(Archivable('hello').next('bye').value).toEqual('bye');
 });
 
-test('Archivable(value) stores all values in ._history', (t) => {
-  t.deepEqual(Archivable('hello').next('bye')._history, ['hello', 'bye']);
+test('Archivable(value) stores all values in ._history', () => {
+  expect(Archivable('hello').next('bye')._history).toEqual(['hello', 'bye']);
 });
 
-test('Archivable(value) sets .value to result of .map()', (t) => {
-  t.deepEqual(Archivable('hello').map((x) => x.toUpperCase()).value, 'HELLO');
+test('Archivable(value) sets .value to result of .map()', () => {
+  expect(Archivable('hello').map((x) => x.toUpperCase()).value).toEqual(
+    'HELLO'
+  );
 });
 
-test('Archivable(value) sets .value from result of calling .next() and .undo()', (t) => {
-  t.deepEqual(Archivable('hello').next('bye').undo().value, 'hello');
+test('Archivable(value) sets .value from result of calling .next() and .undo()', () => {
+  expect(Archivable('hello').next('bye').undo().value).toEqual('hello');
 });
 
-test('Archivable(value) allows multiple .undo()', (t) => {
-  t.deepEqual(Archivable('hello').next('bye').undo().undo().value, 'hello');
+test('Archivable(value) allows multiple .undo()', () => {
+  expect(Archivable('hello').next('bye').undo().undo().value).toEqual('hello');
 });
 
-test('Archivable(value) calls .redo() and sets .value', (t) => {
-  t.deepEqual(Archivable('hello').redo().value, 'hello');
+test('Archivable(value) calls .redo() and sets .value', () => {
+  expect(Archivable('hello').redo().value).toEqual('hello');
 });
 
-test('Archivable(value) accepts array of history', (t) => {
-  t.deepEqual(Archivable(['hello', 'bye', 'hi again']).undo().redo()._head, 2);
+test('Archivable(value) accepts array of history', () => {
+  expect(Archivable(['hello', 'bye', 'hi again']).undo().redo()._head).toEqual(
+    2
+  );
 });
 
-test('Archivable(value) calls .next() and sets value', (t) => {
-  t.deepEqual(
-    Archivable(['hello', 'bye']).undo().next('greeting').value,
+test('Archivable(value) calls .next() and sets value', () => {
+  expect(Archivable(['hello', 'bye']).undo().next('greeting').value).toEqual(
     'greeting'
   );
 });
 
-test('Archivable(value) calls .next() and slices history after head', (t) => {
-  t.deepEqual(Archivable(['hello', 'bye']).undo().next('greeting')._history, [
-    'hello',
-    'greeting',
-  ]);
+test('Archivable(value) calls .next() and slices history after head', () => {
+  expect(Archivable(['hello', 'bye']).undo().next('greeting')._history).toEqual(
+    ['hello', 'greeting']
+  );
 });
