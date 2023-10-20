@@ -1,5 +1,5 @@
 import { curry, map, toPairs, useWith } from 'ramda';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 
 // TODO:
 // 1. What does modifier syntax look like for object syntax?

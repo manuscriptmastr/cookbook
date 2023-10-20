@@ -1,5 +1,5 @@
 import query, { o, m, c } from '.';
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 
 const JQL = {
   eq: o((k, v) => `${k} = "${v}"`),
