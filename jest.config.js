@@ -14,5 +14,6 @@ module.exports = {
     '<rootDir>/src/recipes/archive/index.test.js',
     '<rootDir>/src/recipes/decorator/index.test.js',
     '<rootDir>/src/recipes/error/index.test.js',
+    '<rootDir>/src/recipes/functional/index.test.js',
   ],
 };
