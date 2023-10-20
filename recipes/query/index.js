@@ -16,7 +16,7 @@ const validate = curry((schema, arg) => Joi.attempt(arg, schema));
  * Transforms an object into a query
  * @typedef {Object} Transforms
  * @typedef {Object} QueryObject
- * 
+ *
  * @param {Transforms} transforms
  * @param {QueryObject} object
  * @returns {string}
@@ -36,19 +36,19 @@ const query = curry((transforms, object) => {
   const transform = transforms[key];
   const type = transform._type;
 
-  return type === 'operator' ?
-      transform(...value)
-  : type === 'modifier' ?
-      transform(value)
-  : type === 'composer' ?
-      transform(map(query(transforms), value))
-  :   value;
+  return type === 'operator'
+    ? transform(...value)
+    : type === 'modifier'
+    ? transform(value)
+    : type === 'composer'
+    ? transform(map(query(transforms), value))
+    : value;
 });
 
 /**
  * Creates an operator
  * @typedef {function(string, string | number): string} Operator
- * 
+ *
  * @param {Operator} fn
  * @returns {Operator}
  * @example
@@ -56,15 +56,19 @@ const query = curry((transforms, object) => {
  *   set('mood', 'good');
  *   // => 'mood is good'
  */
-export const o = fn => type('operator', useWith(fn, [
-  validate(Joi.string().required()),
-  validate(Joi.alternatives(Joi.string(), Joi.number()).required())
-]));
+export const o = (fn) =>
+  type(
+    'operator',
+    useWith(fn, [
+      validate(Joi.string().required()),
+      validate(Joi.alternatives(Joi.string(), Joi.number()).required()),
+    ])
+  );
 
 /**
  * Creates a modifier
  * @typedef {function(string): string} Modifier
- * 
+ *
  * @param {Modifier} fn
  * @returns {Modifier}
  * @example
@@ -72,14 +76,13 @@ export const o = fn => type('operator', useWith(fn, [
  *   negate('bad');
  *   // => 'not bad'
  */
-export const m = fn => type('modifier', useWith(fn, [
-  validate(Joi.string().required())
-]));
+export const m = (fn) =>
+  type('modifier', useWith(fn, [validate(Joi.string().required())]));
 
 /**
  * Creates a composer
  * @typedef {function(string[]): string} Composer
- * 
+ *
  * @param {Composer} fn
  * @returns {Composer}
  * @example
@@ -87,11 +90,13 @@ export const m = fn => type('modifier', useWith(fn, [
  *   commaSeparated(['bread', 'milk', 'blackberries']);
  *   // => 'bread, milk, blackberries'
  */
-export const c = fn => type('composer', useWith(fn, [
-  validate(Joi.array().min(2).items(Joi.string()).required())
-]));
+export const c = (fn) =>
+  type(
+    'composer',
+    useWith(fn, [validate(Joi.array().min(2).items(Joi.string()).required())])
+  );
 
 export default useWith(query, [
   validate(Joi.object().min(1).required()),
-  validate(Joi.object().min(1).required())
+  validate(Joi.object().min(1).required()),
 ]);

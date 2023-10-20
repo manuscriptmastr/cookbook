@@ -4,9 +4,10 @@
   "description": "",
   "author": "",
   "license": "ISC",
-  "type": "module",
   "scripts": {
-    "test": "ava --verbose --watch"
+    "lint": "prettier . --write",
+    "test": "jest recipes/decorator/index.test.js",
+    "test:ava": "ava"
   },
   "ava": {
     "nodeArguments": [
@@ -14,8 +15,18 @@
     ]
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.23.2",
     "@hapi/joi": "^17.1.1",
-    "ava": "^3.13.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "ramda": "^0.27.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "ava": "^3.13.0",
+    "babel-jest": "^29.7.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-organize-imports": "^3.2.3"
   }
 }
