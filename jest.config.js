@@ -13,5 +13,6 @@ module.exports = {
   testMatch: [
     '<rootDir>/src/recipes/archive/index.test.js',
     '<rootDir>/src/recipes/decorator/index.test.js',
+    '<rootDir>/src/recipes/error/index.test.js',
   ],
 };
