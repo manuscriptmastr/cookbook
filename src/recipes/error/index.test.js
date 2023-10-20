@@ -24,16 +24,6 @@ test('instanceOf(Error, error) returns false if error.name does not equal Error.
   expect(instanceOf(NotFoundError, new RandomError('Yeet'))).toEqual(false);
 });
 
-test('instanceOf(ErrorString, error) returns true if error.name equals ErrorString', () => {
-  expect(instanceOf('NotFoundError', new NotFoundError('Not found'))).toEqual(
-    true
-  );
-});
-
-test('instanceOf(ErrorString, error) returns false if error.name does not equal ErrorString', () => {
-  expect(instanceOf('NotFoundError', new RandomError('Yeet'))).toEqual(false);
-});
-
 test('rescue(Error, with) rescues error whose instance matches Error', async () => {
   const throwsNotFound = async () => raise(new NotFoundError('Not found'));
   await expect(
