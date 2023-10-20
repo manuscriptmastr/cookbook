@@ -1,5 +1,4 @@
-import R from 'ramda';
-const { adjust, curry, curryN, once } = R;
+import { adjust, curry, curryN, once } from 'ramda';
 
 // const appendThree = curry((prefix, infix, suffix) => `${prefix} ${infix} ${suffix}`);
 // const apThree = applyN(3, appendThree);
@@ -7,7 +6,7 @@ const { adjust, curry, curryN, once } = R;
 // => 'hello there world'
 export const applyN = (num, fn) => {
   const arrayOf = (val, num) => new Array(num).fill(val);
-  const isFilled = arr => arr.every(item => item !== null);
+  const isFilled = (arr) => arr.every((item) => item !== null);
   const run = ([pos, arg], args) => {
     const newArgs = adjust(pos, () => arg, args);
     return isFilled(newArgs)
@@ -19,8 +18,8 @@ export const applyN = (num, fn) => {
 
 // Tail recursion using the chainRec category
 export const chainRec = curry((fn, acc) => {
-  const next = value => ({ tag: next, value });
-  const done = value => ({ tag: done, value });
+  const next = (value) => ({ tag: next, value });
+  const done = (value) => ({ tag: done, value });
   const { value, tag } = fn(next, done, acc);
   return tag === next ? chainRec(fn, value) : value;
 });
@@ -28,7 +27,7 @@ export const chainRec = curry((fn, acc) => {
 // Passes the previous value along with next value
 export const previous = curry((fn, initial) => {
   let last = initial;
-  return value => {
+  return (value) => {
     const next = fn(last, value);
     last = next;
     return next;
@@ -54,7 +53,7 @@ export const onceEvery = curry((ms, fn) => {
       result = fn(...args);
     }
 
-    timer = setTimeout(() => stale = true, ms);
+    timer = setTimeout(() => (stale = true), ms);
     return result;
   });
 });
@@ -72,4 +71,8 @@ export const onceUnless = curry((pred, fn) => {
 // const safeFetch = thru(retry(3), fetch);
 // safeFetch('123.com', { method: 'GET' });
 // => Response
-export const thru = curry((decorate, fn) => (...args) => decorate(() => fn(...args)));
+export const thru = curry(
+  (decorate, fn) =>
+    (...args) =>
+      decorate(() => fn(...args))
+);

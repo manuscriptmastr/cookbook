@@ -1,10 +1,7 @@
-import ramda from 'ramda';
-const { curry, take } = ramda;
+import { curry, take } from 'ramda';
 
 const safeHead = curry((arr, currHead, toHead) =>
-  toHead >= 0 && toHead <= arr.length - 1
-    ? toHead
-    : currHead
+  toHead >= 0 && toHead <= arr.length - 1 ? toHead : currHead
 );
 
 const Archivable = (history, head = null) => {
@@ -21,7 +18,7 @@ const Archivable = (history, head = null) => {
     redo: () => Archivable(history, safeHd(head + 1)),
     _history: history,
     _head: head,
-    toString: () => `Archived(${value})`
+    toString: () => `Archived(${value})`,
   };
 };
 
