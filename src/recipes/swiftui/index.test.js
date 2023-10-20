@@ -1,37 +1,37 @@
-import test from 'ava';
-import { Color, Text, VStack, List, render, sanitize } from './index.js';
+import { Color, Text, VStack, List, render, sanitize } from '.';
 
-test('Color enum allows different ways to find a color', (t) => {
-  t.deepEqual(Color.blue, 'blue');
-  t.deepEqual(Color('blue'), 'blue');
+test('Color enum allows different ways to find a color', () => {
+  expect(Color.blue).toEqual('blue');
+  expect(Color('blue')).toEqual('blue');
 });
 
-test('Text(string) works', (t) => {
-  t.deepEqual(
-    render(Text('')),
+test('Text(string) works', () => {
+  expect(render(Text(''))).toEqual(
     '<Text foregroundColor="black" backgroundColor="white"></Text>'
   );
-  t.deepEqual(
-    render(Text('Hi')),
+  expect(render(Text('Hi'))).toEqual(
     '<Text foregroundColor="black" backgroundColor="white">Hi</Text>'
   );
-  t.deepEqual(Text('').props.foregroundColor, 'black');
-  t.deepEqual(Text('').foregroundColor('blue').props.foregroundColor, 'blue');
-  t.deepEqual(
-    Text('').foregroundColor('blue').backgroundColor('charcoal').props,
-    { foregroundColor: 'blue', backgroundColor: 'charcoal' }
+  expect(Text('').props.foregroundColor).toEqual('black');
+  expect(Text('').foregroundColor('blue').props.foregroundColor).toEqual(
+    'blue'
   );
+  expect(
+    Text('').foregroundColor('blue').backgroundColor('charcoal').props
+  ).toEqual({ foregroundColor: 'blue', backgroundColor: 'charcoal' });
 });
 
-test('VStack(children) works without children', (t) => {
-  t.deepEqual(render(VStack([])), '<VStack height="0" width="0"></VStack>');
-  t.deepEqual(VStack([]).height(10).props.height, 10);
-  t.deepEqual(VStack([]).height(10).width(10).props, { height: 10, width: 10 });
+test('VStack(children) works without children', () => {
+  expect(render(VStack([]))).toEqual('<VStack height="0" width="0"></VStack>');
+  expect(VStack([]).height(10).props.height).toEqual(10);
+  expect(VStack([]).height(10).width(10).props).toEqual({
+    height: 10,
+    width: 10,
+  });
 });
 
-test('VStack(children) works with children', (t) => {
-  t.deepEqual(
-    render(VStack([Text('Hi')])),
+test('VStack(children) works with children', () => {
+  expect(render(VStack([Text('Hi')]))).toEqual(
     sanitize(`
       <VStack height="0" width="0">
         <Text foregroundColor="black" backgroundColor="white">Hi</Text>
@@ -40,14 +40,15 @@ test('VStack(children) works with children', (t) => {
   );
 });
 
-test('VStack(children) works with children and modifiers', (t) => {
-  t.deepEqual(
+test('VStack(children) works with children and modifiers', () => {
+  expect(
     render(
       VStack([
         Text('Hello').foregroundColor(Color.blue).backgroundColor(Color.black),
         Text('world'),
       ])
-    ),
+    )
+  ).toEqual(
     sanitize(`
       <VStack height="0" width="0">
         <Text foregroundColor="blue" backgroundColor="black">Hello</Text>
@@ -57,17 +58,15 @@ test('VStack(children) works with children and modifiers', (t) => {
   );
 });
 
-test('List(children) works without children', (t) => {
-  t.deepEqual(render(List([])), '<List orientation="vertical"></List>');
-  t.deepEqual(
-    render(List([], () => Text('Hi'))),
+test('List(children) works without children', () => {
+  expect(render(List([]))).toEqual('<List orientation="vertical"></List>');
+  expect(render(List([], () => Text('Hi')))).toEqual(
     '<List orientation="vertical"></List>'
   );
 });
 
-test('List(children) works with children', (t) => {
-  t.deepEqual(
-    render(List([Text('Hi')])),
+test('List(children) works with children', () => {
+  expect(render(List([Text('Hi')]))).toEqual(
     sanitize(`
       <List orientation="vertical">
         <Text foregroundColor="black" backgroundColor="white">Hi</Text>
@@ -76,13 +75,14 @@ test('List(children) works with children', (t) => {
   );
 });
 
-test('List(children) works with children and modifiers', (t) => {
-  t.deepEqual(
+test('List(children) works with children and modifiers', () => {
+  expect(
     render(
       List(['hello', 'world'], ([firstChar]) =>
         Text(firstChar).backgroundColor(Color.blue)
       )
-    ),
+    )
+  ).toEqual(
     sanitize(`
       <List orientation="vertical">
         <Text foregroundColor="black" backgroundColor="blue">h</Text>
