@@ -1,5 +1,4 @@
-import R from 'ramda';
-const { adjust, curry, curryN, once } = R;
+import { adjust, curry, curryN, once } from 'ramda';
 
 // const appendThree = curry((prefix, infix, suffix) => `${prefix} ${infix} ${suffix}`);
 // const apThree = applyN(3, appendThree);

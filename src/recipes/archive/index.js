@@ -1,5 +1,4 @@
-import ramda from 'ramda';
-const { curry, take } = ramda;
+import { curry, take } from 'ramda';
 
 const safeHead = curry((arr, currHead, toHead) =>
   toHead >= 0 && toHead <= arr.length - 1 ? toHead : currHead

@@ -1,5 +1,4 @@
-import R from 'ramda';
-const { curry, curryN, pipe, tap } = R;
+import { curry, curryN, pipe, tap } from 'ramda';
 import { applyN, chainRec, previous, onceEvery, onceUnless, thru } from '.';
 
 test('applyN(number, fn) positionally applies two arguments', () => {

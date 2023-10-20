@@ -1,5 +1,4 @@
-import R from 'ramda';
-const { identity, pipe, pipeWith } = R;
+import { identity, pipe, pipeWith } from 'ramda';
 
 const ap = (f, res) => res.ap(f);
 

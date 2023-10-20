@@ -1,5 +1,4 @@
-import ramda from 'ramda';
-const { both, curryN, eqProps, ifElse, is, propEq } = ramda;
+import { both, curryN, eqProps, ifElse, is, propEq } from 'ramda';
 
 export const instanceOf = eqProps('name');
 export const raise = (error) => {

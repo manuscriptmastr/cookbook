@@ -1,5 +1,4 @@
-import R from 'ramda';
-const { add, divide, multiply } = R;
+import { add, divide, multiply } from 'ramda';
 import Task, { TaskTree } from '.';
 
 const wait = (ms) => new Promise((res) => setTimeout(res, ms));
