@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "lint": "prettier . --write",
-    "test": "jest recipes/decorator/index.test.js",
+    "test": "jest src/recipes/decorator/index.test.js",
     "test:ava": "ava"
   },
   "ava": {
