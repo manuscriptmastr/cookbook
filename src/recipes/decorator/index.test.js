@@ -33,8 +33,9 @@ describe('@persist(storageKey, storage?)', () => {
   });
 
   it('updates both property and session storage when property is updated and session storage was initialized by default property', () => {
+    const tapFn = jest.fn();
     class TestClass {
-      @tap(console.log)
+      @tap(tapFn)
       @persist('test-property')
       accessor showDialog = false;
     }
@@ -43,16 +44,19 @@ describe('@persist(storageKey, storage?)', () => {
 
     expect(myClass.showDialog).toBe(false);
     expect(sessionStorage.getItem('test-property')).toBe('false');
+    expect(tapFn).toHaveBeenCalledWith(false);
 
     myClass.showDialog = true;
 
     expect(myClass.showDialog).toBe(true);
     expect(sessionStorage.getItem('test-property')).toBe('true');
+    expect(tapFn).toHaveBeenCalledWith(true);
 
     myClass.showDialog = false;
 
     expect(myClass.showDialog).toBe(false);
     expect(sessionStorage.getItem('test-property')).toBe('false');
+    expect(tapFn).toHaveBeenCalledWith(false);
   });
 
   it('updates both property and session storage when property is updated and property was initialized by session storage', () => {
