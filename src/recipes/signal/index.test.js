@@ -60,12 +60,12 @@ describe('effect(fn)', () => {
     const effectFn = jest.fn();
     const josh = signal('Joshua');
     const jon = signal('Jonathan');
-    effect(() => effectFn([josh.value, jon.value]));
-    expect(effectFn).toHaveBeenNthCalledWith(1, ['Joshua', 'Jonathan']);
+    effect(() => effectFn(`${josh.value} and ${jon.value}`));
+    expect(effectFn).toHaveBeenNthCalledWith(1, 'Joshua and Jonathan');
     josh.value = 'Josh';
-    expect(effectFn).toHaveBeenNthCalledWith(2, ['Josh', 'Jonathan']);
+    expect(effectFn).toHaveBeenNthCalledWith(2, 'Josh and Jonathan');
     jon.value = 'Jon';
-    expect(effectFn).toHaveBeenNthCalledWith(3, ['Josh', 'Jon']);
+    expect(effectFn).toHaveBeenNthCalledWith(3, 'Josh and Jon');
   });
 
   it('accepts a function with multiple computed signals', () => {
