@@ -34,6 +34,12 @@ Just a bunch of recipes, with tests! Use `npm run test` to run the test suite.
 - `m`
 - `c`
 
+### Signals
+
+- `signal(initialValue)`
+- `computed(fn)`
+- `effect(fn)`
+
 ### SwiftUI
 
 - `Color`
