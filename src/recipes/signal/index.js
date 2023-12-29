@@ -1,7 +1,5 @@
 let context;
 
-const subscribers = Symbol('subscribers');
-
 export class Signal {
   #value;
   #subscribers = new Set();
