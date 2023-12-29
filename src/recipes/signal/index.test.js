@@ -44,6 +44,7 @@ describe('effect(fn)', () => {
     expect(effectFn).toHaveBeenNthCalledWith(1, 'Joshua');
     name.value = 'Jonathan';
     expect(effectFn).toHaveBeenNthCalledWith(2, 'Jonathan');
+    expect(effectFn).toHaveBeenCalledTimes(2);
   });
 
   it('runs the effect function when a computed signal changes', () => {
@@ -54,6 +55,7 @@ describe('effect(fn)', () => {
     expect(effectFn).toHaveBeenNthCalledWith(1, 6);
     name.value = 'Jonathan';
     expect(effectFn).toHaveBeenNthCalledWith(2, 8);
+    expect(effectFn).toHaveBeenCalledTimes(2);
   });
 
   it('accepts a function with multiple signals', () => {
@@ -66,6 +68,7 @@ describe('effect(fn)', () => {
     expect(effectFn).toHaveBeenNthCalledWith(2, 'Josh and Jonathan');
     jon.value = 'Jon';
     expect(effectFn).toHaveBeenNthCalledWith(3, 'Josh and Jon');
+    expect(effectFn).toHaveBeenCalledTimes(3);
   });
 
   it('accepts a function with multiple computed signals', () => {
@@ -87,6 +90,8 @@ describe('effect(fn)', () => {
       2,
       'Hello, Jonathan! Your name is 8 characters long.'
     );
+    // signal('Joshua') notifies both computed() properties, which in turn both notify effect().
+    expect(effectFn).toHaveBeenCalledTimes(3);
   });
 
   it('accepts a function with mixed signals and computed signals', () => {
@@ -100,5 +105,6 @@ describe('effect(fn)', () => {
     expect(effectFn).toHaveBeenNthCalledWith(1, 'Joshua has 3 hobbies.');
     hobbies.value = ['coffee', 'Bible', 'bodybuilding', 'coding'];
     expect(effectFn).toHaveBeenNthCalledWith(2, 'Joshua has 4 hobbies.');
+    expect(effectFn).toHaveBeenCalledTimes(2);
   });
 });

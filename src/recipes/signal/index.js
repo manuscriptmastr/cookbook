@@ -1,5 +1,7 @@
 let context;
 
+const subscribers = Symbol('subscribers');
+
 export class Signal {
   #value;
   #subscribers = new Set();
@@ -28,18 +30,18 @@ export class Computed {
   #subscribers = new Set();
 
   constructor(fn) {
-    const prevContext = context;
     this.#fn = fn;
-    context = this;
-    this.#fn();
-    context = prevContext;
   }
 
   get value() {
+    const prevContext = context;
     if (context) {
       this.#subscribers.add(context);
     }
-    return this.#fn();
+    context = this;
+    const val = this.#fn();
+    context = prevContext;
+    return val;
   }
 
   notify() {
@@ -54,13 +56,18 @@ export class Effect {
 
   constructor(fn) {
     this.#fn = fn;
+    this.runEffect();
+  }
+
+  runEffect() {
+    const prevContext = context;
     context = this;
     this.#fn();
-    context = undefined;
+    context = prevContext;
   }
 
   notify() {
-    this.#fn();
+    this.runEffect();
   }
 }
 
