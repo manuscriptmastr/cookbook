@@ -24,16 +24,6 @@ export const chainRec = curry((fn, acc) => {
   return tag === next ? chainRec(fn, value) : value;
 });
 
-// Passes the previous value along with next value
-export const previous = curry((fn, initial) => {
-  let last = initial;
-  return (value) => {
-    const next = fn(last, value);
-    last = next;
-    return next;
-  };
-});
-
 // const lazyFetchAuthHeaders = onceEvery(5000, fetchAuthHeaders);
 // await lazyFetchAuthHeaders();
 // => invokes fetchAuthHeaders()
@@ -66,6 +56,16 @@ export const onceUnless = curry((pred, fn) => {
     }
     return _fn(...args);
   });
+});
+
+// Passes the previous value along with next value
+export const previous = curry((fn, initial) => {
+  let last = initial;
+  return (value) => {
+    const next = fn(last, value);
+    last = next;
+    return next;
+  };
 });
 
 // const safeFetch = thru(retry(3), fetch);

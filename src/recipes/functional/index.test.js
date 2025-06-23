@@ -65,19 +65,6 @@ test('chainRec(fn) works with pagination', () => {
   expect(timesCalled).toEqual(4);
 });
 
-test('previous(fn, initial) passes initial as first previous value', () => {
-  const add = (a, b) => a + b;
-  expect(previous(add, 0)(1)).toEqual(1);
-});
-
-test('previous(fn, initial) passes previous value along', () => {
-  const add = (a, b) => a + b;
-  const addToLast = previous(add, 0);
-  expect(addToLast(1)).toEqual(1);
-  expect(addToLast(2)).toEqual(3);
-  expect(addToLast(3)).toEqual(6);
-});
-
 test('onceEvery(ms, fn) returns result of fn', () => {
   const add = (a, b) => a + b;
   expect(onceEvery(1000, add)(1, 2)).toEqual(3);
@@ -172,6 +159,19 @@ test('onceUnless(pred, fn) passes fn arguments to predicate', () => {
   expect(lazyAdd(1, 1)).toEqual(2);
   expect(lazyAdd(1, 3)).toEqual(2);
   expect(lazyAdd(1, 2)).toEqual(3);
+});
+
+test('previous(fn, initial) passes initial as first previous value', () => {
+  const add = (a, b) => a + b;
+  expect(previous(add, 0)(1)).toEqual(1);
+});
+
+test('previous(fn, initial) passes previous value along', () => {
+  const add = (a, b) => a + b;
+  const addToLast = previous(add, 0);
+  expect(addToLast(1)).toEqual(1);
+  expect(addToLast(2)).toEqual(3);
+  expect(addToLast(3)).toEqual(6);
 });
 
 test('thru(decorate, fetch) decorates fetch while allowing args to be passed into fetch', async () => {
