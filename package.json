@@ -10,8 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "joi": "^17.11.0",
-    "ramda": "^0.29.1"
+    "joi": "^18.0.1",
+    "ramda": "^0.31.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.3",

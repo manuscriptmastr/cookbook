@@ -38,10 +38,10 @@ const query = curry((transforms, object) => {
   return type === 'operator'
     ? transform(...value)
     : type === 'modifier'
-    ? transform(value)
-    : type === 'composer'
-    ? transform(map(query(transforms), value))
-    : value;
+      ? transform(value)
+      : type === 'composer'
+        ? transform(map(query(transforms), value))
+        : value;
 });
 
 /**
